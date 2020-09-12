@@ -19,5 +19,8 @@
   "homepage": "https://github.com/ibara1454/vue-viewmodel#readme",
   "dependencies": {
     "typescript": "^4.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^7.8.1"
   }
 }
