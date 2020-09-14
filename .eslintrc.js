@@ -5,6 +5,9 @@ module.exports = {
   },
   plugins: ['prettier'],
   extends: [
+    // Adds rules of JSDoc.
+    // https://github.com/gajus/eslint-plugin-jsdoc/blob/v30.5.1/src/index.js
+    'plugin:jsdoc/recommended',
     // Applies the typescript shareable config.
     // https://github.com/typescript-eslint/typescript-eslint/blob/v4.1.0/packages/eslint-plugin/src/configs/recommended.ts
     'plugin:@typescript-eslint/recommended',
@@ -15,5 +18,7 @@ module.exports = {
   ],
   rules: {
     'prettier/prettier': 'error',
+    // Forces writting JSDoc.
+    'jsdoc/require-jsdoc': 'error',
   },
 };
