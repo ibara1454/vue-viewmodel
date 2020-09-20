@@ -85,7 +85,7 @@ export interface ViewModelStoreOwner {
 /**
  * The factory which is responsible to instantiate ViewModels.
  */
-interface ViewModelFactory {
+export interface ViewModelFactory {
   /**
    * Creates a new instance of given ViewModel class.
    *
@@ -117,7 +117,7 @@ class DefaultViewModelFactory implements ViewModelFactory {
 /**
  * ViewModelProvider is responsible for providing ViewModels for a scope.
  */
-class ViewModelProvider {
+export class ViewModelProvider {
   /**
    * The store for saving instantiated ViewModels.
    */

@@ -9,9 +9,11 @@ function onBeforeCreate(this: VueComponentInstance) {
   const { render, setup } = $options;
   if (render) {
     // eslint-disable-next-line arrow-body-style
-    $options.render = (...args: any[]) => {
+    $options.render = (...args: [any, any]) => {
       // console.log(`before ${vm.$options.name || 'no name'} render`);
-      const result = ContextManager.withContext(vm, render.bind(vm, ...args));
+      const result = ContextManager.withContext(vm, () =>
+        render.apply(vm, args),
+      );
       // console.log(`after ${vm.$options.name || 'no name'} render`);
       return result;
     };
@@ -49,9 +51,8 @@ export default class Plugin {
   /**
    * The install method for registering the plugin.
    *
-   * For more information, see https://v3.vuejs.org/guide/plugins.html#using-a-plugin.
-   *
-   * @example <caption>For Vue 3</caption>
+   * For applying the plugin to a Vue 3 project, it would be:
+   * ```typescript
    * import { createApp } from 'vue';
    * import Plugin from 'vue-viewmodel';
    * import App from './App.vue'
@@ -59,8 +60,10 @@ export default class Plugin {
    * const app = createApp(App);
    * app.use(Plugin);
    * app.mount('#app');
+   * ```
    *
-   * @example <caption>For Vue 2</caption>
+   * And for Vue 2 project, it would be:
+   * ```typescript
    * import Vue from 'vue';
    * import Plugin from 'vue-viewmodel';
    * import App from './App.vue'
@@ -70,6 +73,9 @@ export default class Plugin {
    * new Vue({
    *   render: (h) => h(App),
    * }).$mount('#app');
+   * ```
+   *
+   * For more information, see https://v3.vuejs.org/guide/plugins.html#using-a-plugin.
    *
    * @param Vue - The vue constructor function.
    */
@@ -88,3 +94,12 @@ export default class Plugin {
     });
   }
 }
+
+export {
+  ViewModel,
+  ViewModelStore,
+  ViewModelStoreOwner,
+  ViewModelFactory,
+  ViewModelProvider,
+  viewModels,
+} from './viewmodel';
