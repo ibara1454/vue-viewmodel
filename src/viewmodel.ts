@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
 import { VueComponentInstance } from './types';
-import ContextManager from './contextmanager';
+import Plugin from '.';
 
 /**
  * The abstruct ViewModel class.
@@ -183,8 +183,9 @@ export function viewModels<VM extends ViewModel>(
   ctor: ConstructorType<VM>,
   instance?: VueComponentInstance,
 ): VM {
+  const contextManager = Plugin.contextManager;
   // If the second argument is undefined.
-  const owner = instance ?? ContextManager.fooCurrentContext();
+  const owner = instance ?? contextManager.fooCurrentContext();
   // Get existing viewModel instance or create a new viewModel via the provider.
   const provider = new ViewModelProvider(owner);
   return provider.get(ctor);

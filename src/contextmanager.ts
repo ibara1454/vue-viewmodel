@@ -1,18 +1,18 @@
 import { VueComponentInstance } from './types';
 
 class ContextManager {
-  static currentContext = null as VueComponentInstance | null;
+  currentContext = null as VueComponentInstance | null;
 
-  static setCurrentContext(instance: VueComponentInstance | null): void {
+  setCurrentContext(instance: VueComponentInstance | null): void {
     // console.log('current context:', instance);
     this.currentContext = instance;
   }
 
-  static getCurrentContext(): VueComponentInstance | null {
+  getCurrentContext(): VueComponentInstance | null {
     return this.currentContext;
   }
 
-  static fooCurrentContext(): VueComponentInstance {
+  fooCurrentContext(): VueComponentInstance {
     const context = this.getCurrentContext();
     if (!context) {
       throw new Error(
@@ -22,13 +22,13 @@ class ContextManager {
     return context;
   }
 
-  static withContext<T>(vm: VueComponentInstance, fn: () => T): T {
-    const context = ContextManager.getCurrentContext();
-    ContextManager.setCurrentContext(vm);
+  withContext<T>(vm: VueComponentInstance, fn: () => T): T {
+    const context = this.getCurrentContext();
+    this.setCurrentContext(vm);
     try {
       return fn();
     } finally {
-      ContextManager.setCurrentContext(context);
+      this.setCurrentContext(context);
     }
   }
 }

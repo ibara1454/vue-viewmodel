@@ -1,8 +1,7 @@
-// import type { App, Component, ComponentPublicInstance } from 'vue3';
-import type Vue from 'vue2';
-import type { VueConstructor } from 'vue2';
+import type { App, ComponentPublicInstance } from 'vue';
+import { ViewModelStoreOwner } from './viewmodel';
 
-export type VueComponentInstance = Vue;
-// export type VueConstructor = Component;
+export type VueComponentInstance = ComponentPublicInstance &
+  ViewModelStoreOwner;
 
-export type VueApp = VueConstructor;
+export type VueApp = App;
