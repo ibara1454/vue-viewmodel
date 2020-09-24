@@ -27,7 +27,7 @@ class Plugin {
 
       if (setup) {
         // eslint-disable-next-line arrow-body-style
-        $options.setup = (props, ctx) => {
+        $options.setup = (props: any, ctx: any) => {
           // console.log(`before ${vm.$options.name || 'no name'} setup`);
           const result = self.contextManager.withContext(vm, () =>
             setup(props, ctx),
