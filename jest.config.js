@@ -4,6 +4,7 @@ module.exports = {
   testMatch: ['**/*.spec.{js,ts}'],
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
+    '^.+\\.vue$': 'vue-jest',
   },
   moduleNameMapper: {
     // Set the path alias such that you can use like '@/foo' to reference 'src/foo'.
