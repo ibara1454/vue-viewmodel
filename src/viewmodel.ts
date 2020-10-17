@@ -1,6 +1,5 @@
-/* eslint-disable max-classes-per-file */
-import { VueComponentInstance } from './types';
-import Plugin from '.';
+import type { ComponentInternalInstance } from 'vue';
+import { getNonNullCurrentInstance } from './util';
 
 /**
  * The abstruct ViewModel class.
@@ -13,16 +12,15 @@ export abstract class ViewModel {
    * This method will be called when the ViewModel is no longer needed and will
    * be destroyed. You should override this method to release resources.
    */
-  // eslint-disable-next-line class-methods-use-this
-  public clear(): void {
-    // Empty implementation.
-  }
+  abstract clear(): void;
 }
 
 /**
- * The type alias returns a variadic constructor function.
+ * The type alias represents the variadic constructor function of Klass.
+ * @typeParam Klass - The type of class itself.
  */
-type ConstructorType<Klass> = new (...args: unknown[]) => Klass;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type ConstructorType<Klass> = new (...args: any[]) => Klass;
 
 /**
  * The storage for ViewModels.
@@ -59,6 +57,10 @@ export class ViewModelStore {
     return this.store.keys();
   }
 
+  public values(): IterableIterator<ViewModel> {
+    return this.store.values();
+  }
+
   /**
    * Clear the storage.
    */
@@ -68,31 +70,29 @@ export class ViewModelStore {
 }
 
 /**
- * The interface which provides a method for obtaining ViewModelStores.
+ * The class which provides a method for obtaining ViewModelStores.
  */
-export interface ViewModelStoreOwner {
+export abstract class ViewModelStoreOwner {
   /**
    * Returns a ViewModelStore.
    * This should always return the same ViewModelStore for a same scope.
    *
    * @returns A ViewModelStore instance.
    */
-  getViewModelStore(): ViewModelStore;
-
-  $viewModelStore?: ViewModelStore;
+  abstract getViewModelStore(): ViewModelStore;
 }
 
 /**
  * The factory which is responsible to instantiate ViewModels.
  */
-export interface ViewModelFactory {
+export abstract class ViewModelFactory {
   /**
    * Creates a new instance of given ViewModel class.
    *
    * @param ctor - A ViewModel class whose instance is requested.
    * @returns A new instance of ViewModel.
    */
-  create<VM extends ViewModel>(ctor: ConstructorType<VM>): VM;
+  abstract create<VM extends ViewModel>(ctor: ConstructorType<VM>): VM;
 }
 
 /**
@@ -100,7 +100,7 @@ export interface ViewModelFactory {
  * This factory could only be used for creating the ViewModels with 0 param
  * constructor.
  */
-class DefaultViewModelFactory implements ViewModelFactory {
+class DefaultViewModelFactory extends ViewModelFactory {
   /**
    * Creates a new instance of given ViewModel class.
    *
@@ -127,14 +127,6 @@ export class ViewModelProvider {
    * The factory for creating ViewModels.
    */
   private readonly factory: ViewModelFactory;
-
-  /**
-   * Create a `ViewModelProvider`, which will create ViewModels via default factory
-   * and retain them in a store of the given `ViewModelStoreOwner`.
-   *
-   * @param owner - A `ViewModelStoreOwner` which will be used to get `ViewModelStore`.
-   */
-  constructor(owner: ViewModelStoreOwner);
 
   /**
    * Create a `ViewModelProvider`, which will create ViewModels via the given factory
@@ -173,20 +165,72 @@ export class ViewModelProvider {
 }
 
 /**
- * Foo
+ * Returns a ViewModel instance which is scoped to the given `instance`.
  *
- * @param ctor - The constructor function to create a new viewmodel.
- * @param instance - The vue instance which the generated viewmodel depends on.
- * @returns
+ * Usage:
+ * ```typescript
+ * import { defineComponent, ref } from 'vue';
+ * import { viewModels, ViewModel } from 'vue-viewmodel';
+ *
+ * class MyViewModel extends ViewModel {
+ *   count = ref(0);
+ *
+ *   clear() {
+ *     // ...
+ *   }
+ * }
+ *
+ * export default defineComponent({
+ *   setup() {
+ *     const viewModel = viewModels(MyViewModel);
+ *     return { count: viewModel.count };
+ *   }
+ * });
+ * ```
+ *
+ * @param ctor - The constructor function to create a new ViewModel.
+ * @param instance - (Optional) The vue instance which the generated ViewModel depends on.
+ * @typeParam VM - The type of ViewModel.
+ * @returns The ViewModel scoped to the given `instance`.
  */
 export function viewModels<VM extends ViewModel>(
   ctor: ConstructorType<VM>,
-  instance?: VueComponentInstance,
+  instance?: ComponentInternalInstance,
+  factory?: ViewModelFactory,
 ): VM {
-  const contextManager = Plugin.contextManager;
-  // If the second argument is undefined.
-  const owner = instance ?? contextManager.fooCurrentContext();
-  // Get existing viewModel instance or create a new viewModel via the provider.
-  const provider = new ViewModelProvider(owner);
+  const owner = getViewModelStoreOwner(
+    // If the second argument is not given,
+    // then use the current instance (the caller instance) instead.
+    instance ?? getNonNullCurrentInstance(),
+  );
+  const provider = factory
+    ? new ViewModelProvider(owner, factory)
+    : new ViewModelProvider(owner);
+  // Get existing viewModel instance or create a new viewModel via viewmodel provider.
   return provider.get(ctor);
+}
+
+/**
+ * Transforms the given ComponentInternalInstance to ViewModelStoreOwner.
+ *
+ * Note that this function will inject a `getViewModelStore` function on the given
+ * ComponentInternalInstance if `getViewModelStore` does not exist.
+ *
+ * @param instance - The vue instance which the generated ViewModel depends on.
+ * @returns The ViewModelStoreOwner instance.
+ *  (Exactly, the ViewModelStoreOwner is the same instance as the given ComponentInternalInstance)
+ */
+function getViewModelStoreOwner(
+  instance: ComponentInternalInstance & Partial<ViewModelStoreOwner>,
+): ViewModelStoreOwner {
+  // If `getViewModelStore` does not exist on the instance, then inject which method on it.
+  if (instance.getViewModelStore === undefined) {
+    const viewModelStore = new ViewModelStore();
+    instance.getViewModelStore = () => viewModelStore;
+  }
+  // const mergeStrategy = ins.appContext.app.config.optionMergeStrategies;
+  // // The proxy is set before setup.
+  // // https://github.com/vuejs/vue-next/blob/master/packages/runtime-core/src/component.ts#L555
+  // const { beforeUnmount } = ins.proxy!.$options;
+  return instance as ViewModelStoreOwner;
 }
