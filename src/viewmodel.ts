@@ -167,7 +167,7 @@ export class ViewModelProvider {
 /**
  * Returns a ViewModel instance which is scoped to the given `instance`.
  *
- * Usage:
+ * Usage for getting a `ViewModel` in current component scope:
  * ```typescript
  * import { defineComponent, ref } from 'vue';
  * import { viewModels, ViewModel } from 'vue-viewmodel';
@@ -183,6 +183,66 @@ export class ViewModelProvider {
  * export default defineComponent({
  *   setup() {
  *     const viewModel = viewModels(MyViewModel);
+ *     return { count: viewModel.count };
+ *   }
+ * });
+ * ```
+ *
+ * Usage for getting a `ViewModel` in specific component scope:
+ * ```typescript
+ * import { defineComponent, ref } from 'vue';
+ * import { viewModels, ViewModel } from 'vue-viewmodel';
+ *
+ * class MyViewModel extends ViewModel {
+ *   count = ref(0);
+ *
+ *   clear() {
+ *     // ...
+ *   }
+ * }
+ *
+ * export default defineComponent({
+ *   setup() {
+ *     // Get a ViewModel which is scoped to the parent component.
+ *     const viewModel = viewModels(MyViewModel, ins.parent!);
+ *     return { count: viewModel.count };
+ *   }
+ * });
+ * ```
+ *
+ * Usage for getting a `ViewModel` with arbitrary constructor:
+ * ```typescript
+ * import { defineComponent, ref, getCurrentInstance } from 'vue';
+ * import { viewModels, ViewModel, ViewModelFactory } from 'vue-viewmodel';
+ *
+ * class MyViewModel extends ViewModel {
+ *   count: number;
+ *
+ *   constructor(initCount: number) {
+ *     super();
+ *     this.count = initCount;
+ *   }
+ *
+ *   clear() {
+ *     // ...
+ *   }
+ * }
+ *
+ * class MyFactory extends ViewModelFactory {
+ *   create<VM extends ViewModel>(ctor: unknown): VM {
+ *     if (ctor === MyViewModel.prototype.constructor) {
+ *       const viewModel: ViewModel = new MyViewModel(0);
+ *       return viewModel as VM;
+ *     } else {
+ *       throw Error('No matched ViewModel');
+ *     }
+ *   }
+ * }
+ *
+ * export default defineComponent({
+ *   setup() {
+ *     const factory = new MyFactory();
+ *     const viewModel = viewModels(MyViewModel, getCurrentInstance(), factory);
  *     return { count: viewModel.count };
  *   }
  * });
