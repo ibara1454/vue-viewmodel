@@ -1,6 +1,6 @@
 {
   "name": "vue-viewmodel",
-  "version": "0.0.1",
+  "version": "0.1.0-alpha.0",
   "description": "",
   "type": "commonjs",
   "main": "dist/cjs/index.js",
