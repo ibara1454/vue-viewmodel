@@ -5,8 +5,6 @@ name: pull_request
 on: pull_request
 
 env:
-  # Leave these lines unchanged
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   DIST_DIR: dist
 
 jobs:
