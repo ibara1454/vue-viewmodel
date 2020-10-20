@@ -45,8 +45,11 @@ Finally, you can get the ViewModel scoped by the current vue instance:
 
 ```vue
 // MyComponent.vue
-<template></template>
+<template>
+  <div>count: {{ count }}</div>
+</template>
 
+<script>
 import { defineComponent } from 'vue';
 import { viewModels } from 'vue-viewmodel';
 import MyViewModel from './MyViewModel.ts';
@@ -57,6 +60,7 @@ export default defineComponent({
     return { count: viewModel.count };
   }
 });
+</script>
 ```
 
 ## Documentation
