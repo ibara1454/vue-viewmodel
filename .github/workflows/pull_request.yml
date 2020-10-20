@@ -1,0 +1,48 @@
+name: pull_request
+
+# https://docs.github.com/en/free-pro-team@latest/actions/reference/events-that-trigger-workflows#pull_request
+# By default, a workflow only runs when a pull_request's activity type is opened, synchronize, or reopened.
+on: pull_request
+
+env:
+  # Leave these lines unchanged
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  DIST_DIR: dist
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout latest repository
+      uses: actions/checkout@v2
+
+    - name: Use Node.js 14.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14.x
+
+    # Save and restore from caches
+    - name: Cache npm cache
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run lint
+      run: npm run lint
+
+    - name: Run test
+      run: npm test
+
+    - name: Upload built files
+      uses: actions/upload-artifact@v2
+      with:
+        name: dist
+        path: ${{ env.DIST_DIR }}
