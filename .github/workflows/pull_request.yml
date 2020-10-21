@@ -42,6 +42,13 @@ jobs:
     - name: Production Build
       run: npm run build
 
+    # Codecov Bash uploader
+    # See https://docs.codecov.io/docs/about-the-codecov-bash-uploader
+    - name: Upload coverage report
+      run: bash <(curl -s https://codecov.io/bash)
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
     - name: Upload built files
       uses: actions/upload-artifact@v2
       with:
