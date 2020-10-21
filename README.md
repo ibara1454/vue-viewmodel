@@ -1,6 +1,7 @@
 # Vue-ViewModel: An Android-like ViewModel implementation for Vue 3.0
 
 [![GitHub Actions](https://github.com/ibara1454/vue-viewmodel/workflows/build/badge.svg)](https://github.com/ibara1454/vue-viewmodel/actions?query=workflow%3Abuild)
+[![codecov](https://codecov.io/gh/ibara1454/vue-viewmodel/branch/master/graph/badge.svg)](https://codecov.io/gh/ibara1454/vue-viewmodel)
 
 Vue-ViewModel is a plugin for managing states over components and lifecycles, which is inspired by [Android Jetpack ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel).
 
