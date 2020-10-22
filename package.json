@@ -55,7 +55,7 @@
     "vue": "^3.0.0",
     "vue-jest": "^5.0.0-alpha.4"
   },
-  "engines": {
-    "npm": "~6.9.0"
+  "peerDependencies": {
+    "vue": "^3.0.0"
   }
 }
