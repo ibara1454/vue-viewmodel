@@ -21,6 +21,7 @@ export default [
         sourcemap: true,
       },
     ],
+    external: ['vue'],
     plugins: [
       // Note that the official typescript plugin has an issue on version over than 4.0.0.
       // > Error: @rollup/plugin-typescript: 'dir' must be used when 'outDir' is specified.
@@ -44,6 +45,7 @@ export default [
         sourcemap: true,
       },
     ],
+    external: ['vue'],
     // Use rollup-plugin-dts plugin to generate definition files.
     // https://github.com/Swatinem/rollup-plugin-dts
     plugins: [dts()],
