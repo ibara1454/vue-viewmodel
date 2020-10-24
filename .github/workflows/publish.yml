@@ -45,10 +45,10 @@ jobs:
     - name: Run test
       run: npm test
 
-    # - name: Build and publish
-    #   run: |
-    #     npm config set //registry.npmjs.org/:_authToken=${{ env.NPM_REGISTRY_TOKEN }}
-    #     npx can-npm-publish@1.3.2 && npm publish
+    - name: Build and publish
+      run: |
+        npm config set //registry.npmjs.org/:_authToken=${{ env.NPM_REGISTRY_TOKEN }}
+        npx can-npm-publish@1.3.2 && npm publish
     #     npm config set //npm.pkg.github.com/:_authToken=${{ env.GITHUB_PACKAGES_TOKEN }}
     #     npm publish
 
