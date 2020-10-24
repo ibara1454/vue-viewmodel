@@ -9,8 +9,16 @@ Vue-ViewModel is a plugin for managing states over components and lifecycles, wh
 
 ## Installation
 
+Install via npm:
+
 ```bash
 npm install --save vue-viewmodel
+```
+
+Install via Yarn:
+
+```bash
+yarn add vue-viewmodel
 ```
 
 ## Usage
