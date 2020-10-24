@@ -56,7 +56,7 @@ export class MyViewModel extends ViewModel {
 Finally, you can get the ViewModel scoped by the current vue instance:
 
 ```vue
-// MyComponent.vue
+<!-- MyComponent.vue -->
 <template>
   <div>count: {{ count }}</div>
 </template>
