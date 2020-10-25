@@ -20,7 +20,20 @@ export default [
         format: 'es',
         sourcemap: true,
       },
+      {
+        file: pkg.unpkg,
+        format: 'umd',
+        sourcemap: true,
+        name: 'VueViewmodel',
+        // And declares the global variable name for Vue in umd/iife bundles
+        // https://github.com/rollup/rollup/issues/1169#issuecomment-268815735
+        // https://rollupjs.org/guide/en/#outputglobals
+        globals: {
+          vue: 'Vue',
+        },
+      },
     ],
+    // Treat Vue as the external module.
     external: ['vue'],
     plugins: [
       // Note that the official typescript plugin has an issue on version over than 4.0.0.
