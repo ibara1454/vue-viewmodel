@@ -25,7 +25,8 @@ export default [
         format: 'umd',
         sourcemap: true,
         name: 'VueViewmodel',
-        // And declares the global variable name for Vue in umd/iife bundles
+        // Use the Vue as the external library (by the `external` option)
+        // and declares the global variable name for Vue in umd/iife bundles.
         // https://github.com/rollup/rollup/issues/1169#issuecomment-268815735
         // https://rollupjs.org/guide/en/#outputglobals
         globals: {
