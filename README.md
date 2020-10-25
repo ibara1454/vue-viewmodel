@@ -1,6 +1,6 @@
 # Vue-ViewModel: An Android-like ViewModel implementation for Vue 3.0
 
-[![npm version](https://badge.fury.io/js/vue-viewmodel.svg)](https://www.npmjs.com/package/vue-viewmodel)
+[![Version](https://img.shields.io/npm/v/vue-viewmodel)](https://www.npmjs.com/package/vue-viewmodel)
 [![GitHub Actions](https://github.com/ibara1454/vue-viewmodel/workflows/build/badge.svg)](https://github.com/ibara1454/vue-viewmodel/actions?query=workflow%3Abuild)
 [![codecov](https://codecov.io/gh/ibara1454/vue-viewmodel/branch/master/graph/badge.svg)](https://codecov.io/gh/ibara1454/vue-viewmodel)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/77bac24504cc4fe9a6d638251c0d912a)](https://www.codacy.com/gh/ibara1454/vue-viewmodel/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=ibara1454/vue-viewmodel&amp;utm_campaign=Badge_Grade)
