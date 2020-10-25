@@ -48,7 +48,7 @@ And write your own ViewModel class to extends `ViewModel`:
 import { ref } from 'vue';
 import { ViewModel } from 'vue-viewmodel';
 
-export class MyViewModel extends ViewModel {
+export default class MyViewModel extends ViewModel {
   count = ref(0);
 
   clear() {
