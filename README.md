@@ -26,6 +26,13 @@ Install via Yarn:
 yarn add vue-viewmodel
 ```
 
+For prototyping, you can use the latest version via CDN:
+
+```html
+<script src="https://unpkg.com/vue-viewmodel@latest/dist/umd/index.js"></script>
+<!-- Then access the plugin by the global variable `VueViewmodel` -->
+```
+
 ## Usage
 
 To use this plugin in your project, you have to apply the plugin to your application instance at first:
