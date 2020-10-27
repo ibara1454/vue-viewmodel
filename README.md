@@ -32,7 +32,7 @@ To use this plugin in your project, you have to apply the plugin to your applica
 
 ```typescript
 import { createApp } from 'vue';
-import { Plugin } from 'vue-viewmodel';
+import Plugin from 'vue-viewmodel';
 import App from './App.vue'
 
 const app = createApp(App);
