@@ -1,4 +1,5 @@
 import typescript from 'rollup-plugin-typescript2';
+import { terser } from 'rollup-plugin-terser';
 import dts from 'rollup-plugin-dts';
 import pkg from './package.json';
 
@@ -47,6 +48,8 @@ export default [
       // (Optional) Pass options to overrides the default settings from the tsconfig.json.
       // https://github.com/rollup/plugins/tree/bc6a86cb795e8fa752ca078ae0f38e23daf01112/packages/typescript#options
       typescript(),
+      // Minify output files.
+      terser(),
     ],
   },
   // Roll-up .d.ts definition file.
