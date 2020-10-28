@@ -8,9 +8,9 @@
 
 Vue-ViewModel is a plugin for managing states over components and lifecycles, which is inspired by [Android Jetpack ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel).
 
-## Features
-
-TBD.
+- Scoped state management.
+- OOP-style state construction.
+- Easy to test.
 
 ## Installation
 
