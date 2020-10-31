@@ -39,12 +39,12 @@ To use this plugin in your project, you have to apply the plugin to your applica
 
 ```typescript
 import { createApp } from 'vue';
-import Plugin from 'vue-viewmodel';
+import { plugin } from 'vue-viewmodel';
 import App from './App.vue'
 
 const app = createApp(App);
 // Apply this plugin to your application.
-app.use(Plugin);
+app.use(plugin);
 app.mount('#app');
 ```
 
