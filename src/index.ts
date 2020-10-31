@@ -1,7 +1,6 @@
 import Plugin from './plugin';
 
-const plugin = new Plugin();
-export default plugin;
+export const plugin = new Plugin();
 
 export {
   ViewModel,
