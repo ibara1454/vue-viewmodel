@@ -11,7 +11,10 @@ module.exports = {
   ],
   extends: [
     // Applies the typescript shareable config.
+    // (Note that the recommended config provides the 'overrides.files': ['*.ts, *.tsx]
+    // settings, it makes ESLint be applied on TypeScript files)
     // https://github.com/typescript-eslint/typescript-eslint/blob/v4.1.0/packages/eslint-plugin/src/configs/recommended.ts
+    // https://github.com/typescript-eslint/typescript-eslint/blob/v4.1.0/packages/eslint-plugin/src/configs/eslint-recommended.ts
     'plugin:@typescript-eslint/recommended',
     // Turns off all rules that are unnecessary or might conflict with Prettier.
     // https://github.com/prettier/eslint-config-prettier/tree/9444ee0b20f9af3ff364f62d6a9ab967ad673a9d
@@ -22,4 +25,16 @@ module.exports = {
     'prettier/prettier': 'error',
     'tsdoc/syntax': 'warn',
   },
+  // By default, without `overrides` section, ESLint will not be applied on
+  // non-JavaScript file (*.js).
+  overrides: [
+    // The rules for *.vue files.
+    {
+      files: ['*.vue'],
+      // Overrides the other extends rules by eslint-plugin-vue.
+      // Note that 'plugin:vue/recommended' doesn't specify the 'files'
+      // option, so we have to apply it on *.vue files in the 'overrides' section.
+      extends: ['plugin:vue/recommended'],
+    },
+  ],
 };
