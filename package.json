@@ -2,7 +2,12 @@
   "name": "vue-viewmodel",
   "version": "0.1.0-alpha.3",
   "description": "A plugin for managing states over components and lifecycles for Vue 3.0",
-  "keywords": ["vue", "vue-plugin", "viewmodel", "state-management"],
+  "keywords": [
+    "vue",
+    "vue-plugin",
+    "viewmodel",
+    "state-management"
+  ],
   "type": "commonjs",
   "main": "dist/cjs/index.js",
   "exports": {
