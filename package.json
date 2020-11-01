@@ -23,7 +23,7 @@
     "prepublishOnly": "npm run build",
     "lint": "eslint src/**",
     "lint:fix": "eslint --fix src/**",
-    "test": "jest --coverage"
+    "test": "jest"
   },
   "repository": {
     "type": "git",

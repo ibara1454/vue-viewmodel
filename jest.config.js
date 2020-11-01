@@ -10,5 +10,6 @@ module.exports = {
     // Set the path alias such that you can use like '@/foo' to reference 'src/foo'.
     '^@/(.*)$': '<rootDir>/src/$1',
   },
+  collectCoverage: true,
   collectCoverageFrom: ['src/**'],
 };
