@@ -59,6 +59,7 @@ export default class MyViewModel extends ViewModel {
   count = ref(0);
 
   clear() {
+    super.clear();
     // Release your resources and listeners *HERE*.
   }
 }
