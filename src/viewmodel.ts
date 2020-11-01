@@ -12,7 +12,10 @@ export abstract class ViewModel {
    * This method will be called when the ViewModel is no longer needed and will
    * be destroyed. You should override this method to release resources.
    */
-  abstract clear(): void;
+  clear(): void {
+    // The empty implementation for the case the
+    // derived class didn't override `clear` method.
+  }
 }
 
 /**
@@ -176,6 +179,7 @@ export class ViewModelProvider {
  *   count = ref(0);
  *
  *   clear() {
+ *     super.clear();
  *     // ...
  *   }
  * }
@@ -197,6 +201,7 @@ export class ViewModelProvider {
  *   count = ref(0);
  *
  *   clear() {
+ *     super.clear();
  *     // ...
  *   }
  * }
@@ -224,6 +229,7 @@ export class ViewModelProvider {
  *   }
  *
  *   clear() {
+ *     super.clear();
  *     // ...
  *   }
  * }

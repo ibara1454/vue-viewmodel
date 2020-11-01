@@ -6,6 +6,7 @@ export default class TestCustomCtorViewModel extends ViewModel {
   }
 
   public clear(): void {
+    super.clear();
     console.log('clear called');
   }
 }
