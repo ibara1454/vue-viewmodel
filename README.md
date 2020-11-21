@@ -33,6 +33,14 @@ For prototyping, you can use the latest version via CDN:
 <!-- Then access the plugin by the global variable `VueViewmodel` -->
 ```
 
+## Examples
+
+[Example 1: Share states with components](https://codesandbox.io/s/vue-viewmodel-example-1-0um2e)
+
+[Example 2: With arbitrary constructor](https://codesandbox.io/s/vue-viewmodel-example-2-wsfh0)
+
+[Example 3: With DI framework](https://codesandbox.io/s/vue-viewmodel-example-3-tnsng)
+
 ## Usage
 
 To use this plugin in your project, you have to apply the plugin to your application instance at first:
